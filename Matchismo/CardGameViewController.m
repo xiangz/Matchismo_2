@@ -38,7 +38,6 @@
 
 
 
-
 - (IBAction)touchCardButton:(UIButton *)sender {
     
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
@@ -73,6 +72,10 @@
     return [UIImage imageNamed:card.isChosen ? @"cardfront" : @"cardback"];
 }
 
+- (IBAction)dealGame:(id)sender {
+    self.game =nil;
+    [self updateUI];
+}
 
 
 
