@@ -12,6 +12,7 @@
 
 @property(strong,nonatomic) NSString *suit;
 @property(nonatomic) NSUInteger rank;
+//-(int) match:(NSArray *)otherCards forMode:(NSInteger) mode;
 +(NSArray *) validSuits;
 +(NSArray *) rankStrings;
 +(NSInteger) maxRank;

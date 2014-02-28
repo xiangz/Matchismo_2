@@ -14,7 +14,7 @@
 
 @implementation Card
 
--(int)match:(NSArray *)otherCards
+-(int)match:(NSArray *)otherCards forMode:(NSInteger)mode
 {
     int score = 0;
     

@@ -12,10 +12,18 @@
 @interface CardMatchingGame()
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards;// of Card
+@property (nonatomic,strong) NSMutableArray *chosenArray;
+@property(nonatomic) NSInteger count;
 
 @end
 
 @implementation CardMatchingGame
+
+-(NSMutableArray *)chosenArray
+{
+    if(!_chosenArray)_chosenArray = [[NSMutableArray alloc] init];
+    return _chosenArray;
+}
 
 -(NSMutableArray *) cards
 {
@@ -56,34 +64,80 @@ static const int COST_TO_CHOOSE=1;
 
 
 
--(void)chooseCardAtIndex:(NSUInteger)index
+-(void)chooseCardAtIndex:(NSUInteger)index forMode:(NSInteger) mode
 {
+    
     Card *card = [self cardAtIndex:index];
+    
     if(!card.isMatched){
         
         if(card.isChosen){
             card.chosen = NO;
         }else{
-            
-            for(Card *otherCard in self.cards){
-                if(otherCard.isChosen && !otherCard.isMatched){
-                    int matchScore = [card match:@[otherCard]];
-                    if(matchScore){
-                        self.score += matchScore * MATCH_BONUS;
-                        otherCard.matched=YES;
-                        card.matched=YES;
-                        
-                    }else{
-                        self.score -= MISMATCH_PENALTY;
-                        otherCard.chosen = NO;
+            if(mode==2){
+                for(Card *otherCard in self.cards){
+                    if(otherCard.isChosen && !otherCard.isMatched){
+                        int matchScore = [card match:@[otherCard] forMode:mode];
+                        if(matchScore){
+                            self.score += matchScore * MATCH_BONUS;
+                            otherCard.matched=YES;
+                            card.matched=YES;
+                            
+                        }else{
+                            self.score -= MISMATCH_PENALTY;
+                            otherCard.chosen = NO;
+                            
+                        }
+                        break;
+                    }
+                    
+                }
+                self.score -= COST_TO_CHOOSE;
+                card.chosen=YES;
+            }else{
+                
+                self.count++;
+                
+                if(self.count==3){
+                    
+                    for(Card *otherCard in self.cards){
+                        if(otherCard.isChosen && !otherCard.isMatched){
+                            [self.chosenArray addObject:otherCard];
+        
+                        }
                         
                     }
-                    break;
+                }
+                self.score -= COST_TO_CHOOSE;
+                card.chosen=YES;
+                
+                if([self.chosenArray count]==2){
+                    int matchScore = [card match:self.chosenArray forMode:mode];
+                    
+                    if(matchScore){
+                        self.score += matchScore * MATCH_BONUS;
+                        for(Card *chosenCard in self.chosenArray){
+                            chosenCard.matched=YES;
+                        }                        
+                        card.matched=YES;
+                        self.count=0;
+
+                        
+                    }else{
+                        for(Card *chosenCard in self.chosenArray){
+                            chosenCard.chosen=NO;
+                        }
+                        
+                        self.score -= MISMATCH_PENALTY;
+                        self.count=1;
+
+                    
+                    }
+                    [self.chosenArray removeAllObjects];
+                
                 }
                 
             }
-            self.score -= COST_TO_CHOOSE;
-            card.chosen=YES;
         }
     }
     

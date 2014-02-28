@@ -16,10 +16,17 @@
 @property (strong, nonatomic) CardMatchingGame *game;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property( nonatomic) NSInteger mode;
 
 @end
 
 @implementation CardGameViewController
+
+-(NSInteger)mode
+{
+    if(!_mode) _mode=2;
+    return _mode;
+}
 
 
 -(CardMatchingGame *)game
@@ -41,7 +48,7 @@
 - (IBAction)touchCardButton:(UIButton *)sender {
     
     int chosenButtonIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:chosenButtonIndex];
+    [self.game chooseCardAtIndex:chosenButtonIndex forMode:self.mode];
     [self updateUI];
     
     
@@ -56,7 +63,7 @@
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
-        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d",self.game.score];
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
     }
     
     
@@ -77,6 +84,13 @@
     [self updateUI];
 }
 
+- (IBAction)switchMode:(UISwitch *)sender {
+    if(sender.on){
+        self.mode=2;
+    }else{
+        self.mode=3;
+    }
+}
 
 
 

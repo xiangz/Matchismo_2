@@ -11,17 +11,37 @@
 @implementation PlayingCard
 
 
--(int) match:(NSArray *)otherCards
+-(int) match:(NSArray *)otherCards forMode:(NSInteger) mode
 {
     int score =0;
     
-    if([otherCards count]==1){
-        PlayingCard *otherCard = [otherCards firstObject];
-        if(otherCard.rank == self.rank){
-            score=4;
-        }else if(otherCard.suit == self.suit){
-            score =1;
+    
+    if (mode==2) {
+        if([otherCards count]==1){
+            PlayingCard *otherCard = [otherCards firstObject];
+            if(otherCard.rank == self.rank){
+                score=4;
+            }else if(otherCard.suit == self.suit){
+                score =1;
+            }
+        
         }
+    }else{
+        if([otherCards count]==2){
+            PlayingCard *card1 = otherCards[0];
+            PlayingCard *card2 = otherCards[1];
+            if((card1.suit==card2.suit&&card1.suit==self.suit)||(card1.rank==card2.rank&&card2.rank==self.rank)){
+                score = 30;
+                
+            }else if(card1.suit==card2.suit||card1.suit==self.suit||card2.suit==self.suit){
+                score = 1;
+            }else if(card1.rank==card2.rank||card2.rank==self.rank||card1.rank==self.rank){
+                score=4;
+            }
+            
+        }
+        
+        
         
     }
     
