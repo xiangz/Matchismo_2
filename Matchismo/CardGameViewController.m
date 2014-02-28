@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property( nonatomic) NSInteger mode;
+@property (weak, nonatomic) IBOutlet UISwitch *switchLabel;
 
 @end
 
@@ -58,6 +59,7 @@
 -(void)updateUI{
     
     for (UIButton *cardButton in self.cardButtons) {
+        self.switchLabel.enabled=false;
         int cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
         Card *card = [self.game cardAtIndex:cardButtonIndex];
         [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
@@ -82,6 +84,7 @@
 - (IBAction)dealGame:(id)sender {
     self.game =nil;
     [self updateUI];
+    self.switchLabel.enabled=YES;
 }
 
 - (IBAction)switchMode:(UISwitch *)sender {

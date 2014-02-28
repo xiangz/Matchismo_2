@@ -190,6 +190,7 @@
                     </view>
                     <connections>
                         <outlet property="scoreLabel" destination="Ydq-jg-Z4c" id="2hG-SA-pgi"/>
+                        <outlet property="switchLabel" destination="CRb-Wu-n2o" id="epy-Ry-tkc"/>
                         <outletCollection property="cardButtons" destination="D7c-uM-LTW" id="GyJ-an-YWD"/>
                         <outletCollection property="cardButtons" destination="585-Xu-hBi" id="Zxe-h5-7lK"/>
                         <outletCollection property="cardButtons" destination="b3j-tD-fDz" id="CDL-DO-vN7"/>
