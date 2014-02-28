@@ -13,7 +13,6 @@
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards;// of Card
 @property (nonatomic,strong) NSMutableArray *chosenArray;
-@property(nonatomic) NSInteger count;
 
 @end
 
@@ -96,9 +95,19 @@ static const int COST_TO_CHOOSE=1;
                 card.chosen=YES;
             }else{
                 
-                self.count++;
+//                self.count++;
+//                NSLog(@"COUNT == %d", self.count);
+                int count=1;
+                for(Card *otherCard in self.cards){
+                    if(otherCard.isChosen && !otherCard.isMatched){
+                        count++;
+                    }
+                    
+                }
+
                 
-                if(self.count==3){
+                
+                if(count==3){
                     
                     for(Card *otherCard in self.cards){
                         if(otherCard.isChosen && !otherCard.isMatched){
@@ -120,7 +129,6 @@ static const int COST_TO_CHOOSE=1;
                             chosenCard.matched=YES;
                         }                        
                         card.matched=YES;
-                        self.count=0;
 
                         
                     }else{
@@ -129,7 +137,6 @@ static const int COST_TO_CHOOSE=1;
                         }
                         
                         self.score -= MISMATCH_PENALTY;
-                        self.count=1;
 
                     
                     }
