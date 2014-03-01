@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property( nonatomic) NSInteger mode;
 @property (weak, nonatomic) IBOutlet UISwitch *switchLabel;
+@property (weak, nonatomic) IBOutlet UILabel *textLabel;
 
 @end
 
@@ -66,6 +67,8 @@
         [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
         cardButton.enabled = !card.isMatched;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %d", self.game.score];
+        self.textLabel.text = self.game.notification;
+        
     }
     
     

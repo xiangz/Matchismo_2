@@ -31,7 +31,7 @@
             PlayingCard *card1 = otherCards[0];
             PlayingCard *card2 = otherCards[1];
             if((card1.suit==card2.suit&&card1.suit==self.suit)||(card1.rank==card2.rank&&card2.rank==self.rank)){
-                score = 30;
+                score = 20;
                 
             }else if(card1.suit==card2.suit||card1.suit==self.suit||card2.suit==self.suit){
                 score = 1;

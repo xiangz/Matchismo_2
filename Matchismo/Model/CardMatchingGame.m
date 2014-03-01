@@ -13,6 +13,7 @@
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards;// of Card
 @property (nonatomic,strong) NSMutableArray *chosenArray;
+@property(nonatomic,readwrite)NSString *notification;
 
 @end
 
@@ -72,6 +73,7 @@ static const int COST_TO_CHOOSE=1;
         
         if(card.isChosen){
             card.chosen = NO;
+            
         }else{
             if(mode==2){
                 for(Card *otherCard in self.cards){
@@ -81,22 +83,23 @@ static const int COST_TO_CHOOSE=1;
                             self.score += matchScore * MATCH_BONUS;
                             otherCard.matched=YES;
                             card.matched=YES;
+                            self.notification =[NSString stringWithFormat:@"Matched %@ %@ for %d points",card.contents,otherCard.contents,matchScore*MATCH_BONUS];
                             
                         }else{
+                            self.notification =[NSString stringWithFormat:@"%@ %@ don’t match! %d points penalty!",card.contents,otherCard.contents,MISMATCH_PENALTY];
                             self.score -= MISMATCH_PENALTY;
                             otherCard.chosen = NO;
                             
                         }
                         break;
                     }
+                    self.notification = card.contents;
                     
                 }
+                
                 self.score -= COST_TO_CHOOSE;
                 card.chosen=YES;
             }else{
-                
-//                self.count++;
-//                NSLog(@"COUNT == %d", self.count);
                 int count=1;
                 for(Card *otherCard in self.cards){
                     if(otherCard.isChosen && !otherCard.isMatched){
@@ -106,7 +109,7 @@ static const int COST_TO_CHOOSE=1;
                 }
 
                 
-                
+                self.notification = card.contents;
                 if(count==3){
                     
                     for(Card *otherCard in self.cards){
@@ -129,7 +132,13 @@ static const int COST_TO_CHOOSE=1;
                             chosenCard.matched=YES;
                         }                        
                         card.matched=YES;
-
+                        if(matchScore==20){
+                            self.notification =[NSString stringWithFormat:@"All 3 cards matched, get %d points",matchScore*MATCH_BONUS];
+                        }else if(matchScore==4){
+                            self.notification = [NSString stringWithFormat:@"2 cards'rank mathed, only get %d points",matchScore*MATCH_BONUS];
+                        }else{
+                            self.notification = [NSString stringWithFormat:@"2 cards'suit mathed, only get %d points",matchScore*MATCH_BONUS];
+                        }
                         
                     }else{
                         for(Card *chosenCard in self.chosenArray){
@@ -137,7 +146,7 @@ static const int COST_TO_CHOOSE=1;
                         }
                         
                         self.score -= MISMATCH_PENALTY;
-
+                        self.notification =[NSString stringWithFormat:@" Don’t match! %d points penalty!",MISMATCH_PENALTY ];
                     
                     }
                     [self.chosenArray removeAllObjects];

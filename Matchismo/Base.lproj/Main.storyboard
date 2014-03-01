@@ -324,7 +324,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dXp-HA-Daa">
-                                <rect key="frame" x="266" y="430" width="46" height="30"/>
+                                <rect key="frame" x="267" y="434" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Deal">
@@ -335,18 +335,26 @@
                                 </connections>
                             </button>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CRb-Wu-n2o">
-                                <rect key="frame" x="136" y="429" width="51" height="31"/>
+                                <rect key="frame" x="136" y="433" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="switchMode:" destination="vXZ-lx-hvc" eventType="valueChanged" id="CKL-mD-fRG"/>
                                 </connections>
                             </switch>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3xS-2a-PFY">
+                                <rect key="frame" x="18" y="394" width="284" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="0.25098040699958801" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="scoreLabel" destination="Ydq-jg-Z4c" id="2hG-SA-pgi"/>
                         <outlet property="switchLabel" destination="CRb-Wu-n2o" id="epy-Ry-tkc"/>
+                        <outlet property="textLabel" destination="3xS-2a-PFY" id="rQF-Cr-Ia0"/>
                         <outletCollection property="cardButtons" destination="D7c-uM-LTW" id="GyJ-an-YWD"/>
                         <outletCollection property="cardButtons" destination="585-Xu-hBi" id="Zxe-h5-7lK"/>
                         <outletCollection property="cardButtons" destination="b3j-tD-fDz" id="CDL-DO-vN7"/>
